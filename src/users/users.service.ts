@@ -38,7 +38,7 @@ export class UsersService {
     return this.usersRepository.findOne({ where: { login } });
   }
 
-  findAll() {
+  async findAll() {
     return this.usersRepository.find();
   }
   async findOne(id: number) {
