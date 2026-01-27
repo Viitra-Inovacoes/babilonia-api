@@ -1,9 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Bank } from 'src/banks/entities/bank.entity';
 
 @Entity()
 export class Supplier {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column({ name: 'trade_name', type: 'varchar', length: 255 })
@@ -72,6 +78,9 @@ export class Supplier {
     nullable: true,
     eager: true,
   })
+  @JoinColumn({ name: 'bank_id' })
+  bank?: Bank;
+
   @Column({
     name: 'checking_account',
     type: 'varchar',

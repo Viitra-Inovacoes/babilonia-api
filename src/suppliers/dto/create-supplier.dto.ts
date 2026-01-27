@@ -1,17 +1,13 @@
 import {
   IsOptional,
   IsString,
-  IsUUID,
   MaxLength,
   IsNotEmpty,
+  IsInt,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateSupplierDto {
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(50)
-  code: string;
-
   @IsString()
   @IsNotEmpty()
   @MaxLength(255)
@@ -57,9 +53,10 @@ export class CreateSupplierDto {
   @MaxLength(150)
   city: string;
 
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
-  stateId: string;
+  @MaxLength(150)
+  state: string;
 
   @IsString()
   @IsNotEmpty()
@@ -90,9 +87,10 @@ export class CreateSupplierDto {
   @IsString()
   notes?: string;
 
-  @IsUUID()
   @IsNotEmpty()
-  bankId: string;
+  @IsInt()
+  @Type(() => Number)
+  bankId: number;
 
   @IsString()
   @IsNotEmpty()
