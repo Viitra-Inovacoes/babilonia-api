@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRawMaterialDto } from './dto/create-raw-material.dto';
 import { UpdateRawMaterialDto } from './dto/update-raw-material.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { RawMaterial } from './entities/raw-material.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class RawMaterialsService {
-  create(createRawMaterialDto: CreateRawMaterialDto) {
-    return 'This action adds a new rawMaterial';
+  constructor(
+    @InjectRepository(RawMaterial)
+    private readonly rawMaterialsRepository: Repository<RawMaterial>,
+  ) {}
+  async create(createRawMaterialDto: CreateRawMaterialDto) {
+    console.log('raw materials', createRawMaterialDto);
+    return await this.rawMaterialsRepository.save(createRawMaterialDto);
   }
 
   findAll() {
