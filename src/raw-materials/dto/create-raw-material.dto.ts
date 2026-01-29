@@ -76,6 +76,11 @@ export class CreateRawMaterialDto {
 
   @IsOptional()
   @IsString()
+  @Length(1, 255)
+  observation?: string;
+
+  @IsOptional()
+  @IsString()
   @MaxLength(500)
   image?: string;
 }

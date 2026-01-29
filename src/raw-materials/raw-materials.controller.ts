@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
   UploadedFile,
@@ -26,11 +25,7 @@ export class RawMaterialsController {
     @UploadedFile()
     file?: Express.Multer.File,
   ) {
-    if (file) {
-      createRawMaterialDto.image = file.filename;
-    }
-
-    return this.rawMaterialsService.create(createRawMaterialDto);
+    return this.rawMaterialsService.create(createRawMaterialDto, file);
   }
   @Get()
   findAll() {
@@ -38,20 +33,20 @@ export class RawMaterialsController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) code: number) {
-    return this.rawMaterialsService.findOne(code);
+  findOne(@Param('id') id: string) {
+    return this.rawMaterialsService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id', ParseIntPipe) code: number,
+    @Param('id') id: string,
     @Body() updateRawMaterialDto: UpdateRawMaterialDto,
   ) {
-    return this.rawMaterialsService.update(code, updateRawMaterialDto);
+    return this.rawMaterialsService.update(id, updateRawMaterialDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) code: number) {
-    return this.rawMaterialsService.remove(code);
+  remove(@Param('id') id: string) {
+    return this.rawMaterialsService.remove(id);
   }
 }

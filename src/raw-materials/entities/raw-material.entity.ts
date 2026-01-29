@@ -11,7 +11,7 @@ import { Color } from 'src/colors/entities/color.entity';
 
 @Entity()
 export class RawMaterial {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column({ type: 'varchar', length: 50 })
@@ -85,6 +85,9 @@ export class RawMaterial {
 
   @Column({ type: 'boolean', default: true })
   active: boolean;
+
+  @Column({ type: 'varchar', length: 500, nullable: true })
+  observation?: string;
 
   @Column({
     type: 'varchar',

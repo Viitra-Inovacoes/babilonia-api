@@ -20,6 +20,7 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+      - ./uploads:/app/uploads
     restart: unless-stopped
 
   db:
