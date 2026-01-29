@@ -56,6 +56,7 @@ export class RawMaterialsService {
         'rawMaterial.status AS status',
         'rawMaterial.active AS active',
         'rawMaterial.image AS image',
+        'rawMaterial.observation AS observation',
         'unit.description AS unit_description',
         'supplier.tradeName AS supplier_trade_name',
         'color.description AS color_description',
@@ -97,6 +98,7 @@ export class RawMaterialsService {
         'rawMaterial.status AS status',
         'rawMaterial.active AS active',
         'rawMaterial.image AS image',
+        'rawMaterial.observation AS observation',
         'unit.description AS unit_description',
         'supplier.tradeName AS supplier_trade_name',
         'color.description AS color_description',
@@ -116,25 +118,26 @@ export class RawMaterialsService {
   async update(
     id: string,
     updateRawMaterialDto: UpdateRawMaterialDto,
+    file?: Express.Multer.File,
   ): Promise<RawMaterialResponseDto> {
-    const existing = await this.rawMaterialsRepository.preload({
-      id,
-      ...updateRawMaterialDto,
-    });
-
-    if (!existing) {
-      throw new NotFoundException(`Matéria-prima ${id} não encontrada`);
-    }
-
-    await this.rawMaterialsRepository.save(existing);
-    return this.findOne(id);
-  }
-
-  async remove(id: string): Promise<void> {
     const exists = await this.rawMaterialsRepository.findOne({ where: { id } });
     if (!exists) {
       throw new NotFoundException(`Matéria-prima ${id} não encontrada`);
     }
+
+    if (file) {
+      updateRawMaterialDto.image = `raw-materials/${file.filename}`;
+    }
+
+    await this.rawMaterialsRepository.update(id, updateRawMaterialDto);
+    return this.findOne(id);
+  }
+
+  async remove(id: string): Promise<RawMaterialResponseDto> {
+    const rawMaterial = await this.findOne(id);
+
     await this.rawMaterialsRepository.delete(id);
+
+    return rawMaterial;
   }
 }

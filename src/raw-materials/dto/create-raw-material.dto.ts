@@ -81,6 +81,5 @@ export class CreateRawMaterialDto {
 
   @IsOptional()
   @IsString()
-  @MaxLength(500)
   image?: string;
 }

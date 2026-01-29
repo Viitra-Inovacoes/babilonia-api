@@ -38,11 +38,14 @@ export class RawMaterialsController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('file'))
   update(
     @Param('id') id: string,
     @Body() updateRawMaterialDto: UpdateRawMaterialDto,
+    @UploadedFile()
+    file?: Express.Multer.File,
   ) {
-    return this.rawMaterialsService.update(id, updateRawMaterialDto);
+    return this.rawMaterialsService.update(id, updateRawMaterialDto, file);
   }
 
   @Delete(':id')
