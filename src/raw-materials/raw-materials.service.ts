@@ -12,7 +12,6 @@ export class RawMaterialsService {
     private readonly rawMaterialsRepository: Repository<RawMaterial>,
   ) {}
   async create(createRawMaterialDto: CreateRawMaterialDto) {
-    console.log('raw materials', createRawMaterialDto);
     return await this.rawMaterialsRepository.save(createRawMaterialDto);
   }
 
