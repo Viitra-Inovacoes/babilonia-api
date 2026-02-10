@@ -14,9 +14,14 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=babilonia
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - babilonia-network
+    command: >
+      sh -c "npm install && 
+             npx prisma migrate deploy && 
+             npm run start:dev"
     volumes:
       - .:/app
       - /app/node_modules
