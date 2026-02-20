@@ -8,7 +8,7 @@ export class CreateUserDto {
     example: 'João Silva',
     description: 'Nome completo do usuário',
   })
-  nome: string;
+  name: string;
 
   @IsString()
   @IsNotEmpty()
