@@ -12,6 +12,7 @@ import { BanksModule } from './banks/banks.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './authentication/guard/auth.guard';
+import { LocationModule } from './location/location.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AuthGuard } from './authentication/guard/auth.guard';
     ColorsModule,
     SuppliersModule,
     BanksModule,
+    LocationModule,
   ],
   providers: [
     {
