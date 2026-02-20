@@ -1,8 +1,10 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { LoginDto } from './dto/login.dto';
+import { Public } from 'src/common/public.decorator';
 
-@Controller('authentication')
+@Public()
+@Controller('auth')
 export class AuthenticationController {
   constructor(private readonly authenticationService: AuthenticationService) {}
 

@@ -10,6 +10,8 @@ import { ColorsModule } from './colors/colors.module';
 import { SuppliersModule } from './suppliers/suppliers.module';
 import { BanksModule } from './banks/banks.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './authentication/guard/auth.guard';
 
 @Module({
   imports: [
@@ -30,6 +32,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     SuppliersModule,
     BanksModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}
