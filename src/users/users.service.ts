@@ -35,7 +35,7 @@ export class UsersService {
   }
 
   async findByLogin(login: string): Promise<User | null> {
-    return this.usersRepository.findOne({ where: { login } });
+    return await this.usersRepository.findOne({ where: { login } });
   }
 
   async findAll() {
