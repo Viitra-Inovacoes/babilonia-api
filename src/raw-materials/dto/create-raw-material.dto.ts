@@ -50,9 +50,9 @@ export class CreateRawMaterialDto {
   @IsNumber({ maxDecimalPlaces: 2 })
   grammage?: number;
 
-  @IsString()
-  @Length(1, 255)
-  location: string;
+  @Type(() => Number)
+  @IsInt()
+  locationId: number;
 
   @IsOptional()
   @IsString()

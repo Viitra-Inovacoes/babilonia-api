@@ -9,11 +9,12 @@ import { mkdirSync } from 'fs';
 import { RawMaterialsController } from './raw-materials.controller';
 import { RawMaterialsService } from './raw-materials.service';
 import { RawMaterial } from './entities/raw-material.entity';
+import { Location } from 'src/location/entities/location.entity';
 
 @Module({
   imports: [
     ConfigModule,
-    TypeOrmModule.forFeature([RawMaterial]),
+    TypeOrmModule.forFeature([RawMaterial, Location]),
     MulterModule.register({
       storage: diskStorage({
         destination: (req, file, cb) => {

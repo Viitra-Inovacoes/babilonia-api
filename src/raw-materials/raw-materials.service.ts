@@ -38,6 +38,7 @@ export class RawMaterialsService {
       .leftJoin('rawMaterial.unit', 'unit')
       .leftJoin('rawMaterial.supplier', 'supplier')
       .leftJoin('rawMaterial.color', 'color')
+      .leftJoin('rawMaterial.location', 'location')
       .select([
         'rawMaterial.id AS id',
         'rawMaterial.code AS code',
@@ -47,9 +48,9 @@ export class RawMaterialsService {
         'rawMaterial.stock AS stock',
         'rawMaterial.supplierId AS supplierId',
         'rawMaterial.colorId AS colorId',
+        'rawMaterial.locationId AS locationId',
         'rawMaterial.width AS width',
         'rawMaterial.grammage AS grammage',
-        'rawMaterial.location AS location',
         'rawMaterial.composition AS composition',
         'rawMaterial.ncm AS ncm',
         'rawMaterial.type AS type',
@@ -60,6 +61,7 @@ export class RawMaterialsService {
         'unit.description AS unit_description',
         'supplier.tradeName AS supplier_trade_name',
         'color.description AS color_description',
+        'location.location AS location_description',
       ])
       .getRawMany<RawMaterialResponseDto>();
 
@@ -79,6 +81,7 @@ export class RawMaterialsService {
       .leftJoin('rawMaterial.unit', 'unit')
       .leftJoin('rawMaterial.supplier', 'supplier')
       .leftJoin('rawMaterial.color', 'color')
+      .leftJoin('rawMaterial.location', 'location')
       .where('rawMaterial.id = :id', { id })
       .select([
         'rawMaterial.id AS id',
@@ -89,9 +92,9 @@ export class RawMaterialsService {
         'rawMaterial.stock AS stock',
         'rawMaterial.supplierId AS supplierId',
         'rawMaterial.colorId AS colorId',
+        'rawMaterial.locationId AS locationId',
         'rawMaterial.width AS width',
         'rawMaterial.grammage AS grammage',
-        'rawMaterial.location AS location',
         'rawMaterial.composition AS composition',
         'rawMaterial.ncm AS ncm',
         'rawMaterial.type AS type',
@@ -102,6 +105,7 @@ export class RawMaterialsService {
         'unit.description AS unit_description',
         'supplier.tradeName AS supplier_trade_name',
         'color.description AS color_description',
+        'location.location AS location_description',
       ])
       .getRawOne<RawMaterialResponseDto>();
 

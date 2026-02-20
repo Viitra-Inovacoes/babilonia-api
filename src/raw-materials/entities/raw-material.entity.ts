@@ -8,6 +8,7 @@ import {
 import { Unit } from 'src/units/entities/unit.entity';
 import { Supplier } from 'src/suppliers/entities/supplier.entity';
 import { Color } from 'src/colors/entities/color.entity';
+import { Location } from 'src/location/entities/location.entity';
 
 @Entity()
 export class RawMaterial {
@@ -69,7 +70,11 @@ export class RawMaterial {
   grammage?: number;
 
   @Column({ type: 'varchar', length: 255 })
-  location: string;
+  locationId: number;
+
+  @ManyToOne(() => Location, { nullable: false })
+  @JoinColumn({ name: 'locationId' })
+  location: Location;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   composition?: string;

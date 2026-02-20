@@ -8,7 +8,7 @@ export class RawMaterialResponseDto {
   color?: string | null;
   width?: number;
   grammage?: number;
-  location: string;
+  locationId: number;
   composition?: string;
   ncm?: string;
   type?: string;
@@ -19,4 +19,5 @@ export class RawMaterialResponseDto {
   unit_description?: string;
   supplier_trade_name?: string;
   color_description?: string;
+  location_description?: string;
 }
