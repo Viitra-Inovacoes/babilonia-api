@@ -20,7 +20,6 @@ services:
       - babilonia-network
     command: >
       sh -c "npm install && 
-             npx prisma migrate deploy && 
              npm run start:dev"
     volumes:
       - .:/app
@@ -41,6 +40,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - babilonia-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     restart: always
 
 networks:
