@@ -69,7 +69,7 @@ export class RawMaterial {
   })
   grammage?: number;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ nullable: false })
   locationId: number;
 
   @ManyToOne(() => Location, { nullable: false })
