@@ -19,7 +19,7 @@ export class RawMaterialsController {
   constructor(private readonly rawMaterialsService: RawMaterialsService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('image'))
   create(
     @Body() createRawMaterialDto: CreateRawMaterialDto,
     @UploadedFile()
@@ -38,7 +38,7 @@ export class RawMaterialsController {
   }
 
   @Patch(':id')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @Param('id') id: string,
     @Body() updateRawMaterialDto: UpdateRawMaterialDto,

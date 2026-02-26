@@ -10,11 +10,14 @@ import { RawMaterialsController } from './raw-materials.controller';
 import { RawMaterialsService } from './raw-materials.service';
 import { RawMaterial } from './entities/raw-material.entity';
 import { Location } from 'src/location/entities/location.entity';
+import { Unit } from 'src/units/entities/unit.entity';
+import { Supplier } from 'src/suppliers/entities/supplier.entity';
+import { Color } from 'src/colors/entities/color.entity';
 
 @Module({
   imports: [
     ConfigModule,
-    TypeOrmModule.forFeature([RawMaterial, Location]),
+    TypeOrmModule.forFeature([RawMaterial, Location, Unit, Supplier, Color]),
     MulterModule.register({
       storage: diskStorage({
         destination: (req, file, cb) => {
