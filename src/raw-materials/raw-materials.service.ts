@@ -7,12 +7,24 @@ import { RawMaterial } from './entities/raw-material.entity';
 import { Repository } from 'typeorm';
 import { RawMaterialResponseDto } from './dto/raw-material-response.dto';
 import { Express } from 'express';
+import { Unit } from 'src/units/entities/unit.entity';
+import { Supplier } from 'src/suppliers/entities/supplier.entity';
+import { Color } from 'src/colors/entities/color.entity';
+import { Location } from 'src/location/entities/location.entity';
 
 @Injectable()
 export class RawMaterialsService {
   constructor(
     @InjectRepository(RawMaterial)
     private readonly rawMaterialsRepository: Repository<RawMaterial>,
+    @InjectRepository(Unit)
+    private readonly unitsRepository: Repository<Unit>,
+    @InjectRepository(Supplier)
+    private readonly suppliersRepository: Repository<Supplier>,
+    @InjectRepository(Color)
+    private readonly colorsRepository: Repository<Color>,
+    @InjectRepository(Location)
+    private readonly locationsRepository: Repository<Location>,
     private readonly configService: ConfigService<Record<string, string>>,
   ) {}
 
@@ -20,16 +32,51 @@ export class RawMaterialsService {
     if (!image) return null;
     const normalized = image.includes('/') ? image : `raw-materials/${image}`;
     const baseUrl = this.configService.get<string>('BASE_URL') ?? '';
-    return `${baseUrl}/uploads/${normalized}`;
+    return `${baseUrl}/${normalized}`;
   }
   async create(
     createRawMaterialDto: CreateRawMaterialDto,
     file?: Express.Multer.File,
   ) {
     if (file) {
-      createRawMaterialDto.image = `raw-materials/${file.filename}`;
+      createRawMaterialDto.image = `uploads/raw-materials/${file.filename}`;
     }
-    return await this.rawMaterialsRepository.save(createRawMaterialDto);
+
+    const unit = await this.unitsRepository.findOne({
+      where: { id: createRawMaterialDto.unitId },
+    });
+    if (!unit) {
+      throw new NotFoundException('Unidade de medida não encontrada');
+    }
+
+    const location = await this.locationsRepository.findOne({
+      where: { id: createRawMaterialDto.locationId },
+    });
+    if (!location) {
+      throw new NotFoundException('Localização de estoque não encontrada');
+    }
+
+    if (createRawMaterialDto.supplierId) {
+      const supplier = await this.suppliersRepository.findOne({
+        where: { id: createRawMaterialDto.supplierId as any },
+      });
+      if (!supplier) {
+        throw new NotFoundException('Fornecedor não encontrado');
+      }
+    }
+
+    if (createRawMaterialDto.colorId) {
+      const color = await this.colorsRepository.findOne({
+        where: { id: createRawMaterialDto.colorId },
+      });
+      if (!color) {
+        throw new NotFoundException('Cor não encontrada');
+      }
+    }
+
+    const rawMaterial =
+      this.rawMaterialsRepository.create(createRawMaterialDto);
+    return await this.rawMaterialsRepository.save(rawMaterial);
   }
 
   async findAll(): Promise<RawMaterialResponseDto[]> {
