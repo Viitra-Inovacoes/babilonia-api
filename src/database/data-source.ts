@@ -1,11 +1,9 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SeederOptions } from 'typeorm-extension';
 import { config } from 'dotenv';
-import { dirname, join } from 'path';
+import { join } from 'path';
 
 config();
-
-const __dirname = dirname(__filename);
 
 const dataSourceOptions: DataSourceOptions & SeederOptions = {
   type: 'postgres',

@@ -5,10 +5,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Unit } from 'src/units/entities/unit.entity';
-import { Supplier } from 'src/suppliers/entities/supplier.entity';
-import { Color } from 'src/colors/entities/color.entity';
-import { Location } from 'src/location/entities/location.entity';
+import { Unit } from '../../units/entities/unit.entity';
+import { Supplier } from '../../suppliers/entities/supplier.entity';
+import { Color } from '../../colors/entities/color.entity';
+import { Location } from '../../location/entities/location.entity';
 
 @Entity()
 export class RawMaterial {

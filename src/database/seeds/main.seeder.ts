@@ -1,12 +1,12 @@
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
-import { Unit } from '../../units/entities/unit.entity.js';
-import { Bank } from '../../banks/entities/bank.entity.js';
-import { Color } from '../../colors/entities/color.entity.js';
-import { Location } from '../../location/entities/location.entity.js';
-import { Supplier } from '../../suppliers/entities/supplier.entity.js';
-import { User } from '../../users/entities/user.entity.js';
-import { RawMaterial } from '../../raw-materials/entities/raw-material.entity.js';
+import { Unit } from '../../units/entities/unit.entity';
+import { Bank } from '../../banks/entities/bank.entity';
+import { Color } from '../../colors/entities/color.entity';
+import { Location } from '../../location/entities/location.entity';
+import { Supplier } from '../../suppliers/entities/supplier.entity';
+import { User } from '../../users/entities/user.entity';
+import { RawMaterial } from '../../raw-materials/entities/raw-material.entity';
 import * as bcrypt from 'bcrypt';
 
 export default class MainSeeder implements Seeder {
